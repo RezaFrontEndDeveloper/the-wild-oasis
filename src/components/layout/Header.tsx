@@ -9,7 +9,7 @@ function Header() {
   return (
     <div className="flex items-center justify-end gap-8 border-b-1 border-gray-100 p-10">
       <Capstion>X name</Capstion>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4">
         <Button variant="logo">
           <FaUser className="cursor-pointer" size={20} />
         </Button>

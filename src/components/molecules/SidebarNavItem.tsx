@@ -10,10 +10,14 @@ function SidebarNavItem({ children, address, icon }: Props) {
   return (
     <NavLink
       to={address}
-      className="flex items-center justify-start gap-4 rounded p-2 hover:bg-gray-100"
+      className={({ isActive }) =>
+        isActive
+          ? 'flex items-center justify-start gap-4 rounded bg-gray-100 p-2'
+          : 'flex items-center justify-start gap-4 rounded p-2 hover:bg-gray-100'
+      }
     >
       {icon}
-      <p className="text-xl">{children}</p>
+      <p className="text-md">{children}</p>
     </NavLink>
   );
 }
