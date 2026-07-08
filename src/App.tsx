@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
 
 import Header from './components/layout/Header';
@@ -7,6 +8,7 @@ import SideBar from './components/layout/SideBar';
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <div className="font-serif">
         <div className="flex">
           <div>

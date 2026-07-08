@@ -1,8 +1,6 @@
-import React from 'react';
-
-import Title from '../components/atoms/title';
+import CabinHeader from '../components/atoms/CabinHeader';
+import Title from '../components/atoms/Title';
 import CabinTable from '../components/molecules/CabinTable';
-
 function Cabins() {
   return (
     <div className="flex flex-col gap-10 p-10">
@@ -12,6 +10,7 @@ function Cabins() {
       </div>
 
       <div>
+        <CabinHeader />
         <CabinTable />
       </div>
     </div>
