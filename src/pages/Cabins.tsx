@@ -6,9 +6,11 @@ import Title from '../components/atoms/Title';
 import Modal from '../components/layout/Modal';
 import CabinTable from '../components/molecules/CabinTable';
 import AddCabinForm from '../components/organisms/AddCabinForm';
+import useModalStore from '../store/useModalStore';
 
 function Cabins() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const modalUpdate = useModalStore((state) => state.modalToggle);
+
   return (
     <div className="flex flex-col gap-10 p-10">
       <div className="flex items-center justify-between">
@@ -20,7 +22,7 @@ function Cabins() {
         <CabinHeader />
         <CabinTable />
 
-        <Button variant="primary" onClick={() => setIsOpen((prev) => !prev)}>
+        <Button variant="primary" onClick={modalUpdate}>
           Add Cabin
         </Button>
         {/* {isOpen && (
@@ -28,7 +30,7 @@ function Cabins() {
             <AddCabinForm />
           </Modal>
         )} */}
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal>
           <AddCabinForm />
         </Modal>
       </div>

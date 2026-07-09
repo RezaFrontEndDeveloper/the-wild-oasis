@@ -1,5 +1,10 @@
 import { useForm } from 'react-hook-form';
 
+import useCreateCabin from '../../hooks/useCreateCabin';
+import useModalStore from '../../store/useModalStore';
+import Button from '../atoms/Button';
+import Spinner from '../atoms/Spinner';
+
 type CabinFormData = {
   name: string;
   maxCapacity: number;
@@ -10,15 +15,25 @@ type CabinFormData = {
 };
 
 function AddCabinForm() {
+  const toggleModal = useModalStore((state) => state.modalToggle);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<CabinFormData>();
 
+  const { mutate, error, isPending } = useCreateCabin();
+
   function onSubmit(data: CabinFormData) {
-    console.log(data);
+    mutate(data, {
+      onSuccess: () => {
+        reset();
+        toggleModal();
+      },
+    });
   }
+  if (error) return <p>{error.message}</p>;
 
   return (
     <form
@@ -75,12 +90,14 @@ function AddCabinForm() {
         <label className="w-32">image : </label>
         <input
           className="w-64 rounded border border-gray-300 px-4 py-2"
-          {...register('image', { required: true })}
+          {...register('image')}
           type="file"
           placeholder="image"
         />
       </div>
-      <button type="submit">submit</button>
+      <Button variant="primary" buttonType="submit">
+        {isPending ? <Spinner /> : 'add cabin'}
+      </Button>
     </form>
   );
 }

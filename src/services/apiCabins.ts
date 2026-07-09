@@ -23,3 +23,22 @@ export async function deleteCabin(id: number) {
 
   if (error) throw new Error(error.message);
 }
+
+type Cabin = {
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount: number;
+  description: string;
+};
+
+export async function createCabin(newCabin: Cabin) {
+  const { data, error } = await supabase
+    .from('cabins')
+    .insert([newCabin])
+
+    .select();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
