@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase, supabaseUrl } from './supabase';
 
 export interface CabinType {
   id: number;
@@ -9,7 +9,7 @@ export interface CabinType {
   image: string;
   description: string;
 }
-
+// read data from supabase
 export async function getCabins(): Promise<CabinType[]> {
   const { data, error } = await supabase.from('cabins').select('*');
 
@@ -17,6 +17,8 @@ export async function getCabins(): Promise<CabinType[]> {
 
   return data;
 }
+
+// delete data as supabase
 
 export async function deleteCabin(id: number) {
   const { error } = await supabase.from('cabins').delete().eq('id', id);
@@ -30,15 +32,37 @@ type Cabin = {
   regularPrice: number;
   discount: number;
   description: string;
+  image: File;
 };
 
+// add row in data in supabase
 export async function createCabin(newCabin: Cabin) {
+  const imageName = `${crypto.randomUUID()}-${newCabin.image.name}`.replaceAll('/', '');
+
+  const { error: storageError } = await supabase.storage
+    .from('cabin-images')
+    .upload(imageName, newCabin.image);
+  if (storageError) {
+    throw new Error(storageError.message);
+  }
+
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+
   const { data, error } = await supabase
     .from('cabins')
-    .insert([newCabin])
-
+    .insert([
+      {
+        ...newCabin,
+        image: imagePath,
+      },
+    ])
     .select();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    await supabase.storage.from('cabin-images').remove([imageName]);
+
+    throw new Error(error.message);
+  }
+
   return data;
 }
