@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 
-export interface Cabin {
+export interface CabinType {
   id: number;
   name: string;
   maxCapacity: number;
@@ -10,7 +10,7 @@ export interface Cabin {
   description: string;
 }
 
-export async function getCabins(): Promise<Cabin[]> {
+export async function getCabins(): Promise<CabinType[]> {
   const { data, error } = await supabase.from('cabins').select('*');
 
   if (error) throw error;

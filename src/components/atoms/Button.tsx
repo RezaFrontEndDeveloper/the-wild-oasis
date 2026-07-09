@@ -3,12 +3,12 @@ import { buttonVariants } from '../../design-system/buttonVariants';
 interface Props {
   children: React.ReactNode;
   variant: 'primary' | 'secondary' | 'danger' | 'logo' | 'delete';
-  onclick?: () => void;
+  onClick?: () => void;
 }
 
-function Button({ children, variant = 'primary', onclick }: Props) {
+function Button({ children, variant = 'primary', onClick }: Props) {
   return (
-    <button onClick={onclick} className={buttonVariants[variant]}>
+    <button onClick={onClick} className={buttonVariants[variant]}>
       {children}
     </button>
   );

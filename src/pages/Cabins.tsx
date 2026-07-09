@@ -1,7 +1,14 @@
+import { useState } from 'react';
+
+import Button from '../components/atoms/Button';
 import CabinHeader from '../components/atoms/CabinHeader';
 import Title from '../components/atoms/Title';
+import Modal from '../components/layout/Modal';
 import CabinTable from '../components/molecules/CabinTable';
+import AddCabinForm from '../components/organisms/AddCabinForm';
+
 function Cabins() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="flex flex-col gap-10 p-10">
       <div className="flex items-center justify-between">
@@ -9,9 +16,21 @@ function Cabins() {
         <p>Filter/sort</p>
       </div>
 
-      <div>
+      <div className="relative transition-all duration-300">
         <CabinHeader />
         <CabinTable />
+
+        <Button variant="primary" onClick={() => setIsOpen((prev) => !prev)}>
+          Add Cabin
+        </Button>
+        {/* {isOpen && (
+          <Modal setIsOpen={setIsOpen}>
+            <AddCabinForm />
+          </Modal>
+        )} */}
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <AddCabinForm />
+        </Modal>
       </div>
     </div>
   );
