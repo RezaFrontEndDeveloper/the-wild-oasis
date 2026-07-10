@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import useDeleteCabins from '../../hooks/useDeleteCabins';
 import type { CabinType } from '../../services/apiCabins';
 import Button from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
+import CabinForm from '../organisms/CabinForm';
 
-interface Prop {
+export interface Prop {
   cabin: CabinType;
 }
 function CabinRow({ cabin }: Prop) {
+  const [showForm, setShowForm] = useState<boolean>(false);
+
   const { deleteCabinMutation, deleteError, isPending } = useDeleteCabins();
 
   if (isPending) return <Spinner color="blue" size={30} />;
@@ -18,10 +22,16 @@ function CabinRow({ cabin }: Prop) {
       <p>{cabin?.discount}</p>
       <p>{cabin?.regularPrice}</p>
       <p>{cabin?.discount}</p>
+      <div className="flex items-center justify-between gap-2">
+        <Button onClick={() => deleteCabinMutation(cabin.id)} variant="secondary">
+          delete
+        </Button>
 
-      <Button onClick={() => deleteCabinMutation(cabin.id)} variant="secondary">
-        delete
-      </Button>
+        <Button onClick={() => setShowForm((prev) => !prev)} variant="secondary">
+          edit
+        </Button>
+      </div>
+      {showForm && <CabinForm />}
     </div>
   );
 }

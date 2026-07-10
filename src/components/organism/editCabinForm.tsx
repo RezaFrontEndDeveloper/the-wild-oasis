@@ -1,55 +1,14 @@
-import { useForm } from 'react-hook-form';
+import useForm from 'react-hook-form';
 
-import useCreateCabin from '../../hooks/useCreateCabin';
-import useModalStore from '../../store/useModalStore';
-import Button from '../atoms/Button';
-import Spinner from '../atoms/Spinner';
-
-type CabinFormData = {
-  id: number;
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  description: string;
-  image: FileList;
-};
-
-// interface Props {
-//   cabinToEdit?: CabinType;
-// }
-
-function CabinForm() {
-  const toggleModal = useModalStore((state) => state.modalToggle);
+function editCabinForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<CabinFormData>();
-
-  const { mutate, error, isPending } = useCreateCabin();
-
-  function onSubmit(data: CabinFormData) {
-    const image = data.image[0];
-    mutate(
-      { ...data, image: image },
-      {
-        onSuccess: () => {
-          reset();
-          toggleModal();
-        },
-      },
-    );
-  }
-
-  if (error) return <p>{error.message}</p>;
+    foemState: { errors },
+  } = useForm();
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex w-125 flex-col gap-5 rounded-lg bg-white"
-    >
+    <form className="flex w-125 flex-col gap-5 rounded-lg bg-white">
       <div>
         <div className="flex items-center">
           <label className="w-32">name : </label>
@@ -136,4 +95,4 @@ function CabinForm() {
   );
 }
 
-export default CabinForm;
+export default editCabinForm;

@@ -66,3 +66,11 @@ export async function createCabin(newCabin: Cabin) {
 
   return data;
 }
+
+export async function updateCabin(id: number, updatedCabin: Partial<Cabin>) {
+  const { data, error } = await supabase.from('cabins').update(updatedCabin).eq('id', id).select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

@@ -5,11 +5,17 @@ interface Props {
   variant: 'primary' | 'secondary' | 'danger' | 'logo' | 'delete';
   onClick?: () => void;
   buttonType?: 'submit' | 'reset' | 'button' | undefined;
+  disabled?: boolean;
 }
 
-function Button({ children, variant = 'primary', onClick, buttonType }: Props) {
+function Button({ children, variant = 'primary', onClick, buttonType, disabled = false }: Props) {
   return (
-    <button type={buttonType} onClick={onClick} className={buttonVariants[variant]}>
+    <button
+      disabled={disabled}
+      type={buttonType}
+      onClick={onClick}
+      className={buttonVariants[variant]}
+    >
       {children}
     </button>
   );
