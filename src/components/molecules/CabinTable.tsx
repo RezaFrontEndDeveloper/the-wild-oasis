@@ -5,8 +5,13 @@ import CabinRow from './CabinRow';
 
 function CabinTable() {
   const { cabins, error, isLoading } = useCabins();
-  if (isLoading) return <Spinner />;
   if (error) return <p>error</p>;
+  if (isLoading)
+    return (
+      <div className="flex h-20 items-center justify-center">
+        <Spinner color="black" size={20} />
+      </div>
+    );
 
   return (
     <div>

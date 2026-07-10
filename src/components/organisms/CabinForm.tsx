@@ -14,7 +14,11 @@ type CabinFormData = {
   image: FileList;
 };
 
-function AddCabinForm() {
+interface Props {
+  cabinToEdit: React.ReactNode;
+}
+
+function CabinForm({ cabinToEdit }: Props) {
   const toggleModal = useModalStore((state) => state.modalToggle);
   const {
     register,
@@ -124,10 +128,10 @@ function AddCabinForm() {
       </div>
 
       <Button variant="primary" buttonType="submit">
-        {isPending ? <Spinner /> : 'add cabin'}
+        {isPending ? <Spinner color="white" size={10} /> : 'add cabin'}
       </Button>
     </form>
   );
 }
 
-export default AddCabinForm;
+export default CabinForm;

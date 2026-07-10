@@ -9,7 +9,7 @@ interface Prop {
 function CabinRow({ cabin }: Prop) {
   const { deleteCabinMutation, deleteError, isPending } = useDeleteCabins();
 
-  if (isPending) return <Spinner />;
+  if (isPending) return <Spinner color="blue" size={30} />;
   if (deleteError) return <p>error</p>;
   return (
     <div className="grid grid-cols-[100px_2fr_1fr_1fr_1fr_1fr] items-center py-4">

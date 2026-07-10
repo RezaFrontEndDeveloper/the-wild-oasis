@@ -5,7 +5,7 @@ import CabinHeader from '../components/atoms/CabinHeader';
 import Title from '../components/atoms/Title';
 import Modal from '../components/layout/Modal';
 import CabinTable from '../components/molecules/CabinTable';
-import AddCabinForm from '../components/organisms/AddCabinForm';
+import AddCabinForm from '../components/organisms/CabinForm';
 import useModalStore from '../store/useModalStore';
 
 function Cabins() {
@@ -25,11 +25,7 @@ function Cabins() {
         <Button variant="primary" onClick={modalUpdate}>
           Add Cabin
         </Button>
-        {/* {isOpen && (
-          <Modal setIsOpen={setIsOpen}>
-            <AddCabinForm />
-          </Modal>
-        )} */}
+
         <Modal>
           <AddCabinForm />
         </Modal>
